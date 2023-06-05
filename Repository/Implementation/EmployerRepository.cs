@@ -8,20 +8,25 @@ using System.Threading.Tasks;
 
 namespace Repository.Implementation {
     public class EmployerRepository : RepositoryBase<Employer>, IEmployerRepository {
+        public void CreateEmployer(Employer employer) {
+            Create(employer);
+        }
+
         public void DeleteEmployer(int id) {
             Employer employer = GetEmployer(id);
             if (employer == null) {
                 throw new Exception();
             }
-            Delete(employer);
+            employer.EmployerStatus = 0;
+            Update(employer);
         }
 
         public Employer GetEmployer(int id) {
-            return GetAll().Where(p => p.EmployerId == id).FirstOrDefault();
+            return GetAll().Where(p => p.EmployerId == id && p.EmployerStatus != 0).FirstOrDefault();
         }
 
         public List<Employer> GetEmployers() {
-            return GetAll().ToList();
+            return GetAll().Where(p => p.EmployerStatus != 0).ToList();
         }
 
         public Employer UpdateEmployer(Employer employer) {
