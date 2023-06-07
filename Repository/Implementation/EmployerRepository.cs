@@ -36,6 +36,29 @@ namespace Repository.Implementation
 			return GetAll().Where(p => p.EmployerId == id && p.EmployerStatus != 0).FirstOrDefault();
 		}
 
+		public List<Employer> GetEmployers()
+		{
+			return GetAll().Where(p => p.EmployerStatus != 0).ToList();
+		}
+
+		public Employer UpdateEmployer(Employer employer)
+		{
+			Employer db = GetEmployer(employer.EmployerId);
+			if (db == null)
+			{
+				throw new Exception();
+			}
+			db.EmployerName = employer.EmployerName;
+			db.EmployerStatus = employer.EmployerStatus;
+			db.Phone = employer.Phone;
+			db.Company = employer.Company;
+			db.Email = employer.Email;
+			db.Pwd = employer.Pwd;
+			Update(db);
+			return GetEmployer(db.EmployerId);
+		}
+
+	}
         public Employer UpdateEmployer(Employer employer) {
             Employer db = GetEmployer(employer.EmployerId);
             if (db == null) {
