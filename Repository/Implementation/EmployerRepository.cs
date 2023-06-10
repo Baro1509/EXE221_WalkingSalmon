@@ -35,7 +35,6 @@ namespace Repository.Implementation {
                 throw new Exception();
             }
             db.EmployerName = employer.EmployerName;
-            db.EmployerStatus = employer.EmployerStatus;
             db.Phone = employer.Phone;
             db.Company = employer.Company;
             db.Email = employer.Email;
