@@ -1,10 +1,14 @@
+using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.Implementation;
+using Repository.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<EXE221Context>(
+  options => options.UseSqlServer("name=ConnectionStrings:EXE221"));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
