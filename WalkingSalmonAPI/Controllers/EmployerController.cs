@@ -4,7 +4,7 @@ using Repository;
 using Repository.Models;
 
 namespace WalkingSalmonAPI.Controllers {
-    [Route("api/[controller]")]
+    [Route("api/employers")]
     [ApiController]
     public class EmployerController : ControllerBase {
         private IEmployerRepository _employerRepository;
