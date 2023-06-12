@@ -9,42 +9,52 @@ using System.Net.Mime;
 
 namespace WalkingSalmonAPI.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class AccountController : ControllerBase
-	{
-		private IEmployerRepository empRepository = new EmployerRepository();
-		private IConfiguration configuration = new ConfigurationBuilder()
-			.SetBasePath(Directory.GetCurrentDirectory())
-			.AddJsonFile("appsettings.json", true, true)
-			.Build();
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
+    {
+        private IEmployerRepository empRepository = new EmployerRepository();
+        private IStudentRepository studentRepository = new StudentRepository();
 
-		//Login Employer
-		[HttpPost("EmployerLogin")]
-		[Consumes(MediaTypeNames.Application.Json)]
+        //Register Employer
+        [HttpPost("EmployerRegister")]
+        public async Task<ActionResult<Employer>> EmployerRegister(Employer employer)
+        {
+            empRepository.CreateEmployer(employer);
+            return NoContent();
+        }
+        //Register Student
+        [HttpPost("StudentRegister")]
+        public async Task<ActionResult<Employer>> StudentRegister(Student student)
+        {
+            studentRepository.CreateStudent(student);
+            return NoContent();
+        }
+        //Login Employer
+        [HttpPost("EmployerLogin")]
+        [Consumes(MediaTypeNames.Application.Json)]
 
-		public async Task<ActionResult<Employer>> EmployerLogin(Account account)
-		{
-			Employer employer = empRepository.AuthenticateEmployer(account.Email, account.Pwd);
-			if (employer == null)
-			{
-				return NotFound();
-			}
-			return Ok();
-		}
+        public async Task<ActionResult<Employer>> EmployerLogin(Account account)
+        {
+            Employer employer = empRepository.AuthenticateEmployer(account.Email, account.Pwd);
+            if (employer == null)
+            {
+                return NotFound();
+            }
+            return Ok(employer);
+        }
+        //Login Student
+        [HttpPost("StudentLogin")]
+        [Consumes(MediaTypeNames.Application.Json)]
 
-		//Login Student
-		[HttpPost("StudentLogin")]
-		[Consumes(MediaTypeNames.Application.Json)]
-
-		public async Task<ActionResult<Student>> StudentLogin(Account account)
-		{
-			if (account.Email.Equals(configuration["Admin:Email"], StringComparison.OrdinalIgnoreCase) &&
-				account.Pwd.Equals(configuration["Admin:Password"]))
-			{
-				return new Student { Email = configuration["Admin:Email"], Pwd = configuration["Admin:Password"] };
-			}
-			return Ok();
-		}
-	}
+        public async Task<ActionResult<Student>> StudentLogin(Account account)
+        {
+            Student student = studentRepository.AuthenticateStudent(account.Email, account.Pwd);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return Ok(student);
+        }
+    }
 }

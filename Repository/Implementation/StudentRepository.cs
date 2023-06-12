@@ -17,7 +17,7 @@ namespace Repository.Implementation
         public void DeleteStudent(int id)
         {
             Student student = GetStudent(id);
-            if(student == null)
+            if (student == null)
             {
                 throw new Exception();
             }
@@ -34,7 +34,10 @@ namespace Repository.Implementation
         {
             return GetAll().Where(p => p.StudentId == id && p.StudentStatus != 0).FirstOrDefault();
         }
-
+        public Student AuthenticateStudent(string email, string pwd)
+        {
+            return GetAll().Where(p => p.Email == email && p.Pwd == pwd && p.StudentStatus != 0).FirstOrDefault();
+        }
         public Student UpdateStudent(Student student)
         {
             Student stu = GetStudent(student.StudentId);
