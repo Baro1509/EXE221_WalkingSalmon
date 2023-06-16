@@ -28,6 +28,7 @@ namespace Repository.Models
         public virtual Category Category { get; set; } = null!;
         [JsonIgnore]
         public virtual Employer Employer { get; set; } = null!;
+
         [JsonIgnore]
         public virtual ICollection<JobApplication> JobApplications { get; set; }
     }

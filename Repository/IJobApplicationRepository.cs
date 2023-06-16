@@ -12,8 +12,7 @@ namespace Repository
         public List<JobApplication> GetJobs();
         public JobApplication GetJob(int id);
         public void ApplyJob(JobApplication jobApp);
-        public void EditJobApp(JobApplication jobApp);
-        public void DeleteJobApp(JobApplication jobApp);
+       
 
     }
 }
