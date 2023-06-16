@@ -16,5 +16,7 @@ namespace Repository.Models
         public virtual Review? Review { get; set; }
         [JsonIgnore]
         public virtual Student Student { get; set; } = null!;
+
+        
     }
 }

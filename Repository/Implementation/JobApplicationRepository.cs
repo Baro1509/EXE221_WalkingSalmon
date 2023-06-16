@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 
 namespace Repository.Implementation
 {
-    public class JobApplicationRepository : IJobApplicationRepository
+    public class JobApplicationRepository : RepositoryBase<JobApplication>, IJobApplicationRepository
     {
         public void ApplyJob(JobApplication jobApp)
         {
-            throw new NotImplementedException();
+            Create(jobApp);
         }
 
-        public void DeleteJobApp(JobApplication jobApp)
-        {
-            throw new NotImplementedException();
-        }
+        //public void DeleteJobApp(JobApplication jobApp)
+        //{
+        //    Delete
+        //}
 
-        public void EditJobApp(JobApplication jobApp)
-        {
-            throw new NotImplementedException();
-        }
+        //public void EditJobApp(JobApplication jobApp)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public JobApplication GetJob(int id)
         {
-            throw new NotImplementedException();
+            return GetAll().Where(p => p.JobId == id).FirstOrDefault();
         }
 
         public List<JobApplication> GetJobs()
         {
-            throw new NotImplementedException();
+            return GetAll().ToList();
         }
     }
 }
