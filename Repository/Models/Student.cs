@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.Models
 {
@@ -20,7 +21,9 @@ namespace Repository.Models
         public string StudentAddress { get; set; } = null!;
         public byte StudentStatus { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<BillingAddress> BillingAddresses { get; set; }
+        [JsonIgnore]
         public virtual ICollection<JobApplication> JobApplications { get; set; }
     }
 }

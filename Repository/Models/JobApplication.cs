@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.Models
 {
@@ -9,8 +10,13 @@ namespace Repository.Models
         public int StudentId { get; set; }
         public int? ReviewId { get; set; }
 
-        public virtual Job Job { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Job? Job { get; set; } = null!;
+        [JsonIgnore]
         public virtual Review? Review { get; set; }
-        public virtual Student Student { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Student? Student { get; set; } = null!;
+
+        
     }
 }

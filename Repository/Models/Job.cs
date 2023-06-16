@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.Models
 {
@@ -23,8 +24,12 @@ namespace Repository.Models
         public int EmployerId { get; set; }
         public int CategoryId { get; set; }
 
-        public virtual Category Category { get; set; } = null!;
-        public virtual Employer Employer { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Category? Category { get; set; } 
+        [JsonIgnore]
+        public virtual Employer? Employer { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<JobApplication> JobApplications { get; set; }
     }
 }
