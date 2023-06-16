@@ -34,10 +34,12 @@ namespace Repository.Implementation
         {
             return GetAll().Where(p => p.StudentId == id && p.StudentStatus != 0).FirstOrDefault();
         }
+
         public Student AuthenticateStudent(string email, string pwd)
         {
             return GetAll().Where(p => p.Email == email && p.Pwd == pwd && p.StudentStatus != 0).FirstOrDefault();
         }
+
         public Student UpdateStudent(Student student)
         {
             Student stu = GetStudent(student.StudentId);
