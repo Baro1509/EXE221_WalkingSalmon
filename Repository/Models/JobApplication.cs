@@ -11,11 +11,11 @@ namespace Repository.Models
         public int? ReviewId { get; set; }
 
         [JsonIgnore]
-        public virtual Job Job { get; set; } = null!;
+        public virtual Job? Job { get; set; } = null!;
         [JsonIgnore]
         public virtual Review? Review { get; set; }
         [JsonIgnore]
-        public virtual Student Student { get; set; } = null!;
+        public virtual Student? Student { get; set; } = null!;
 
         
     }

@@ -13,6 +13,6 @@ namespace Repository.Models
         public int StudentId { get; set; }
 
         [JsonIgnore]
-        public virtual Student Student { get; set; } = null!;
+        public virtual Student? Student { get; set; } = null!;
     }
 }
