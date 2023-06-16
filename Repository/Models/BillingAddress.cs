@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.Models
 {
@@ -11,6 +12,7 @@ namespace Repository.Models
         public byte PriorityUsage { get; set; }
         public int StudentId { get; set; }
 
+        [JsonIgnore]
         public virtual Student Student { get; set; } = null!;
     }
 }
