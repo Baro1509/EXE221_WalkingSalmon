@@ -24,6 +24,7 @@ namespace Repository.Models
         public virtual DbSet<JobApplication> JobApplications { get; set; } = null!;
         public virtual DbSet<Review> Reviews { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
+        public virtual DbSet<TransactionDetail> TransactionDetails { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,8 +34,7 @@ namespace Repository.Models
                 optionsBuilder.UseSqlServer(GetConnectionString());
             }
         }
-        private string GetConnectionString()
-        {
+        private string GetConnectionString() {
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
@@ -42,6 +42,7 @@ namespace Repository.Models
             var strConn = config["ConnectionStrings:EXE221"];
             return strConn;
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BillingAddress>(entity =>
@@ -51,9 +52,7 @@ namespace Repository.Models
 
                 entity.ToTable("BillingAddress");
 
-                entity.Property(e => e.BankName)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.BankName).HasMaxLength(20);
 
                 entity.Property(e => e.BankNumber)
                     .HasMaxLength(20)
@@ -70,9 +69,7 @@ namespace Repository.Models
             {
                 entity.ToTable("Category");
 
-                entity.Property(e => e.CategoryName)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.CategoryName).HasMaxLength(20);
 
                 entity.Property(e => e.DateAdded).HasColumnType("datetime");
             });
@@ -81,17 +78,13 @@ namespace Repository.Models
             {
                 entity.ToTable("Employer");
 
-                entity.Property(e => e.Company)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.Company).HasMaxLength(20);
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployerName)
-                    .HasMaxLength(70)
-                    .IsUnicode(false);
+                entity.Property(e => e.EmployerName).HasMaxLength(70);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
@@ -110,25 +103,15 @@ namespace Repository.Models
 
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");
 
-                entity.Property(e => e.Description)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
+                entity.Property(e => e.Description).HasMaxLength(500);
 
-                entity.Property(e => e.SalaryType)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                entity.Property(e => e.SalaryType).HasMaxLength(10);
 
-                entity.Property(e => e.Title)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Title).HasMaxLength(50);
 
-                entity.Property(e => e.WorkLocation)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.WorkLocation).HasMaxLength(20);
 
-                entity.Property(e => e.WorkType)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.WorkType).HasMaxLength(20);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Jobs)
@@ -172,13 +155,9 @@ namespace Repository.Models
             {
                 entity.ToTable("Review");
 
-                entity.Property(e => e.EmployerComment)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.EmployerComment).HasMaxLength(100);
 
-                entity.Property(e => e.StudentComment)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.StudentComment).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Student>(entity =>
@@ -192,13 +171,9 @@ namespace Repository.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.FirstName).HasMaxLength(20);
 
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.LastName).HasMaxLength(50);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
@@ -208,9 +183,27 @@ namespace Repository.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StudentAddress)
-                    .HasMaxLength(100)
+                entity.Property(e => e.StudentAddress).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<TransactionDetail>(entity =>
+            {
+                entity.HasKey(e => e.TransactionId)
+                    .HasName("PK__Transact__55433A6BA59AB7E9");
+
+                entity.ToTable("TransactionDetail");
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TransactionCode)
+                    .HasMaxLength(15)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Job)
+                    .WithMany(p => p.TransactionDetails)
+                    .HasForeignKey(d => d.JobId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Transacti__JobId__4F47C5E3");
             });
 
             OnModelCreatingPartial(modelBuilder);

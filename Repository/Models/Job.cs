@@ -9,6 +9,7 @@ namespace Repository.Models
         public Job()
         {
             JobApplications = new HashSet<JobApplication>();
+            TransactionDetails = new HashSet<TransactionDetail>();
         }
 
         public int JobId { get; set; }
@@ -25,11 +26,13 @@ namespace Repository.Models
         public int CategoryId { get; set; }
 
         [JsonIgnore]
-        public virtual Category? Category { get; set; } 
+        public virtual Category? Category { get; set; }
         [JsonIgnore]
         public virtual Employer? Employer { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<JobApplication> JobApplications { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
     }
 }
