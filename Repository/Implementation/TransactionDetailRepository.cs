@@ -23,6 +23,10 @@ namespace Repository.Implementation {
         public TransactionDetail GetTransaction(int id) {
             return GetAll().Where(p => p.TransactionId == id && p.TransStatus != 0).FirstOrDefault();
         }
+        
+        public List<TransactionDetail> GetAllTransaction() {
+            return GetAll().Where(p => p.TransStatus != 0).ToList();
+        }
 
         public List<TransactionDetail> GetTransactionDetailsByJobId(int id) {
             return GetAll().Where(p => p.JobId == id && p.TransStatus != 0).ToList();

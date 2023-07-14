@@ -9,6 +9,7 @@ namespace Repository {
     public interface ITransactionDetailRepository {
         public TransactionDetail GetTransaction(int id);
         public List<TransactionDetail> GetTransactionDetailsByJobId(int id);
+        public List<TransactionDetail> GetAllTransaction();
         public TransactionDetail UpdateTransactionDetail(TransactionDetail transactionDetail);
         public void CreateTransactionDetail(TransactionDetail transactionDetail);
         public void DeleteTransactionDetail(int id);
