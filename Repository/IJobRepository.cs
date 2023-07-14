@@ -9,6 +9,7 @@ namespace Repository {
     public interface IJobRepository {
         public List<Job> GetJobs();
         public Job GetJobById(int jobId);
+        public List<Job> GetJobsByEmployer(int id);
         public void CreateJob(Job job);
         public void UpdateJob(Job job);
         public void DeleteJob(int jobId);

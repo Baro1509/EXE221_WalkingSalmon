@@ -22,6 +22,11 @@ namespace WalkingSalmonAPI.Controllers {
         public ActionResult Get(int id) {
             return Ok(_jobRepository.GetJobById(id));
         }
+        
+        [HttpGet("/employers/{id:int}")]
+        public ActionResult GetJobsByEmployer(int id) {
+            return Ok(_jobRepository.GetJobsByEmployer(id));
+        }
 
         [HttpPost]
         public IActionResult Create([FromBody] Job job) {

@@ -33,6 +33,10 @@ namespace Repository.Implementation {
         public List<Job> GetJobs() {
             return GetAll().Where(p => p.JobStatus != 0).Include(p => p.Category).Include(p => p.Employer).ToList();
         }
+        
+        public List<Job> GetJobsByEmployer(int id) {
+            return GetAll().Where(p =>p.EmployerId == id && p.JobStatus != 0).Include(p => p.Category).Include(p => p.Employer).ToList();
+        }
 
         public void UpdateJob(Job job) {
             Job db = GetJobById(job.JobId);
