@@ -4,7 +4,7 @@ using Repository.Models;
 using Repository;
 
 namespace WalkingSalmonAPI.Controllers {
-    [Route("api/[controller]")]
+    [Route("api/transactions")]
     [ApiController]
     public class TransactionController : ControllerBase {
         private ITransactionDetailRepository _repository;
@@ -17,8 +17,13 @@ namespace WalkingSalmonAPI.Controllers {
         public IActionResult Get(int id) {
             return Ok(_repository.GetTransaction(id));
         }
+        
+        [HttpGet]
+        public IActionResult Get() {
+            return Ok(_repository.GetAllTransaction());
+        }
 
-        [HttpGet("/Job/{id:int}")]
+        [HttpGet("/jobs/{id:int}")]
         public IActionResult GetByJobId(int id) {
             return Ok(_repository.GetTransactionDetailsByJobId(id));
         }
