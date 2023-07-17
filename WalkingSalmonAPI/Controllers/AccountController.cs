@@ -15,6 +15,10 @@ namespace WalkingSalmonAPI.Controllers
     {
         private IEmployerRepository empRepository = new EmployerRepository();
         private IStudentRepository studentRepository = new StudentRepository();
+        private IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
 
         //Register Employer
         [HttpPost("EmployerRegister")]
@@ -29,6 +33,23 @@ namespace WalkingSalmonAPI.Controllers
         {
             studentRepository.CreateStudent(student);
             return NoContent();
+        }
+        //Login Admin
+        [HttpPost("AdminLogin")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<ActionResult<Employer>> AdminLogin(Account account)
+        {
+            Employer employer = empRepository.AuthenticateEmployer(account.Email, account.Pwd);
+            if (employer == null)
+            {
+                if (account.Email.Equals(configuration["Admin:Email"], StringComparison.OrdinalIgnoreCase) &&
+                    account.Pwd.Equals(configuration["Admin:Password"]))
+                {
+                    return new Employer { Email = configuration["Admin:Email"], Pwd = configuration["Admin:Password"] };
+                }
+                return NotFound();
+            }
+            return Ok(employer);
         }
         //Login Employer
         [HttpPost("EmployerLogin")]
