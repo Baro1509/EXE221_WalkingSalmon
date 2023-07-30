@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models;
 using Repository;
+using Microsoft.AspNetCore.Cors;
 
 namespace WalkingSalmonAPI.Controllers {
     [Route("api/transactions")]
     [ApiController]
+    [EnableCors]
     public class TransactionController : ControllerBase {
         private ITransactionDetailRepository _repository;
 

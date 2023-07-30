@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Repository.Models;
@@ -6,6 +7,7 @@ using Repository.Models;
 namespace WalkingSalmonAPI.Controllers {
     [Route("api/employers")]
     [ApiController]
+    [EnableCors]
     public class EmployerController : ControllerBase {
         private IEmployerRepository _employerRepository;
 

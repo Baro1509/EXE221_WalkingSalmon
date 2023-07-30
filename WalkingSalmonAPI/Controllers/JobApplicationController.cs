@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Repository.Models;
@@ -7,6 +8,7 @@ namespace WalkingSalmonAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class JobApplicationController : ControllerBase
     {
         private IJobApplicationRepository _jobAppRepo;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Repository.Implementation;
@@ -7,6 +8,7 @@ using Repository.Models;
 namespace WalkingSalmonAPI.Controllers {
     [Route("api/reviews")]
     [ApiController]
+    [EnableCors]
     public class ReviewController : ControllerBase {
         private IReviewRepository _reviewRepository;
 
