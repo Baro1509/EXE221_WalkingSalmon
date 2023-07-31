@@ -51,6 +51,7 @@ namespace Repository.Implementation {
             db.SalaryRate = job.SalaryRate;
             db.SalaryType = job.SalaryType;
             db.CategoryId = job.CategoryId;
+            db.JobStatus = job.JobStatus;
             Update(db);
         }
     }
